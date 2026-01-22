@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Liver Disease Prediction Suite</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+        <div class="medical-cross cross-1"></div>
+        <div class="medical-cross cross-2"></div>
+        <div class="medical-cross cross-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <h1>Intelligent Liver Disease Prediction Suite</h1>
+            </div>
+            <nav class="nav">
+                <a href="#home" class="nav-link active" data-section="home"><i class="fas fa-home"></i> Home</a>
+                <a href="#predict" class="nav-link" data-section="predict"><i class="fas fa-stethoscope"></i> Predict</a>
+                <a href="#compare" class="nav-link" data-section="compare"><i class="fas fa-chart-bar"></i> Compare Models</a>
+                <a href="#about" class="nav-link" data-section="about"><i class="fas fa-info-circle"></i> About</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="container">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h2 class="hero-title">Advanced AI-Powered Liver Disease Detection</h2>
+                        <p class="hero-subtitle">Leveraging cutting-edge machine learning with <strong>99.74% accuracy</strong> to predict liver disease from clinical biomarkers</p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <i class="fas fa-bullseye"></i>
+                                <h3>99.74%</h3>
+                                <p>Accuracy</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-crosshairs"></i>
+                                <h3>99.49%</h3>
+                                <p>Precision</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-robot"></i>
+                                <h3>7</h3>
+                                <p>AI Models</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-database"></i>
+                                <h3>30K+</h3>
+                                <p>Patient Records</p>
+                            </div>
+                        </div>
+
+                        <button class="cta-button" onclick="navigateToSection('predict')">
+                            <i class="fas fa-play"></i> Start Prediction
+                        </button>
+                    </div>
+                    
+                    <div class="hero-image">
+                        <div class="liver-icon">
+                            <!-- Liver SVG Icon -->
+                            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="liverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+                                        <stop offset="50%" style="stop-color:#A0522D;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#CD853F;stop-opacity:1" />
+                                    </linearGradient>
+                                    <filter id="glow">
+                                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                        <feMerge>
+                                            <feMergeNode in="coloredBlur"/>
+                                            <feMergeNode in="SourceGraphic"/>
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                <!-- Liver shape -->
+                                <path d="M 60 40 Q 40 30 30 50 Q 25 65 30 80 Q 35 100 50 110 Q 60 115 70 110 Q 75 105 80 100 L 90 95 Q 100 100 110 105 Q 125 115 140 115 Q 155 115 165 105 Q 175 95 175 80 Q 180 60 170 45 Q 160 30 145 30 Q 130 30 120 40 Q 110 50 100 55 Q 90 50 80 45 Q 70 40 60 40 Z" 
+                                      fill="url(#liverGradient)" 
+                                      stroke="#6B3410" 
+                                      stroke-width="2"
+                                      filter="url(#glow)"
+                                      class="liver-path"/>
+                                <!-- Anatomical details -->
+                                <ellipse cx="65" cy="70" rx="8" ry="12" fill="#9B5C2D" opacity="0.6"/>
+                                <ellipse cx="145" cy="75" rx="12" ry="15" fill="#9B5C2D" opacity="0.6"/>
+                                <path d="M 85 60 Q 95 65 105 60" stroke="#7B3F1A" stroke-width="1.5" fill="none" opacity="0.7"/>
+                                <path d="M 75 85 Q 85 90 95 85" stroke="#7B3F1A" stroke-width="1.5" fill="none" opacity="0.7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model Performance Table -->
+                <div class="performance-section">
+                    <h3 class="section-title"><i class="fas fa-trophy"></i> Model Performance Comparison</h3>
+                    <div class="table-container">
+                        <table class="performance-table">
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Accuracy</th>
+                                    <th>Precision</th>
+                                    <th>Recall</th>
+                                    <th>F1 Score</th>
+                                    <th>ROC-AUC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for model, metrics in performance.items() %}
+                                <tr class="{% if model == 'RandomForest' %}best-model{% endif %}">
+                                    <td><strong>{{ model }}</strong></td>
+                                    <td>{{ "%.2f"|format(metrics.accuracy) }}%</td>
+                                    <td>{{ "%.2f"|format(metrics.precision) }}%</td>
+                                    <td>{{ "%.2f"|format(metrics.recall) }}%</td>
+                                    <td>{{ "%.2f"|format(metrics.f1) }}%</td>
+                                    <td>{{ "%.2f"|format(metrics.auc) }}%</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prediction Section -->
+        <section id="predict" class="section">
+            <div class="container">
+                <h2 class="page-title"><i class="fas fa-stethoscope"></i> Liver Disease Prediction</h2>
+                <p class="page-subtitle">Enter patient clinical biomarkers for AI-powered diagnosis</p>
+
+                <div class="prediction-layout">
+                    <!-- Input Form -->
+                    <div class="form-container">
+                        <form id="predictionForm" class="prediction-form">
+                            
+                            <!-- Model Selection -->
+                            <div class="form-group full-width">
+                                <label for="model"><i class="fas fa-brain"></i> Select AI Model</label>
+                                <select id="model" name="model" required>
+                                    <option value="RandomForest" selected>Random Forest (Best - 99.74%)</option>
+                                    <option value="XGBoost">XGBoost (99.64%)</option>
+                                    <option value="CatBoost">CatBoost (99.48%)</option>
+                                    <option value="LightGBM">LightGBM (99.46%)</option>
+                                    <option value="MLP">MLP Neural Network (76.33%)</option>
+                                    <option value="LogisticRegression">Logistic Regression (63.61%)</option>
+                                    <option value="SVM">SVM (58.92%)</option>
+                                </select>
+                            </div>
+
+                            <!-- Patient Demographics -->
+                            <div class="form-section">
+                                <h4><i class="fas fa-user"></i> Patient Demographics</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="age">Age (years)</label>
+                                        <input type="number" id="age" name="age" min="1" max="120" required placeholder="e.g., 45">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender">Gender</label>
+                                        <select id="gender" name="gender" required>
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Liver Function Tests -->
+                            <div class="form-section">
+                                <h4><i class="fas fa-vial"></i> Liver Function Tests</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="total_bilirubin">Total Bilirubin (mg/dL)</label>
+                                        <input type="number" step="0.1" id="total_bilirubin" name="total_bilirubin" required placeholder="e.g., 0.7">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="total_protiens">Total Proteins (g/dL)</label>
+                                        <input type="number" step="0.1" id="total_protiens" name="total_protiens" required placeholder="e.g., 6.8">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="albumin">Albumin (g/dL)</label>
+                                        <input type="number" step="0.1" id="albumin" name="albumin" required placeholder="e.g., 3.3">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="albumin_and_globulin_ratio">Albumin/Globulin Ratio</label>
+                                        <input type="number" step="0.01" id="albumin_and_globulin_ratio" name="albumin_and_globulin_ratio" required placeholder="e.g., 0.9">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Enzyme Tests -->
+                            <div class="form-section">
+                                <h4><i class="fas fa-flask"></i> Enzyme Levels</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="alkaline_phosphotase">Alkaline Phosphatase (IU/L)</label>
+                                        <input type="number" step="1" id="alkaline_phosphotase" name="alkaline_phosphotase" required placeholder="e.g., 187">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="alamine_aminotransferase">Alanine Aminotransferase (IU/L)</label>
+                                        <input type="number" step="1" id="alamine_aminotransferase" name="alamine_aminotransferase" required placeholder="e.g., 16">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="aspartate_aminotransferase">Aspartate Aminotransferase (IU/L)</label>
+                                        <input type="number" step="1" id="aspartate_aminotransferase" name="aspartate_aminotransferase" required placeholder="e.g., 18">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Buttons -->
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Predict
+                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="fillSampleData()">
+                                    <i class="fas fa-clipboard"></i> Load Sample Data
+                                </button>
+                                <button type="reset" class="btn btn-outline">
+                                    <i class="fas fa-redo"></i> Reset
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Results Panel -->
+                    <div class="results-container" id="resultsContainer" style="display: none;">
+                        <div class="results-card">
+                            <h3><i class="fas fa-clipboard-check"></i> Prediction Results</h3>
+                            
+                            <div id="predictionResult"></div>
+                            
+                            <div class="result-info">
+                                <div class="info-item">
+                                    <i class="fas fa-robot"></i>
+                                    <div>
+                                        <span class="label">Model Used</span>
+                                        <span class="value" id="modelUsed">-</span>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-bullseye"></i>
+                                    <div>
+                                        <span class="label">Model Accuracy</span>
+                                        <span class="value" id="modelAccuracy">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compare Section -->
+        <section id="compare" class="section">
+            <div class="container">
+                <h2 class="page-title"><i class="fas fa-chart-bar"></i> Compare All Models</h2>
+                <p class="page-subtitle">See how different AI models diagnose the same patient data</p>
+
+                <div class="compare-layout">
+                    <button class="btn btn-large btn-primary" onclick="compareModels()">
+                        <i class="fas fa-sync-alt"></i> Compare All 7 Models
+                    </button>
+
+                    <div id="comparisonResults" class="comparison-grid" style="display: none;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="page-title"><i class="fas fa-info-circle"></i> About This Project</h2>
+                
+                <div class="about-grid">
+                    <div class="about-card">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Project Overview</h3>
+                        <p>Engineered an end-to-end ML pipeline benchmarking CatBoost, LightGBM, XGBoost, Random Forest, SVM, Logistic Regression, and MLP on liver disease datasets with automated evaluation dashboards.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <i class="fas fa-cogs"></i>
+                        <h3>Methodology</h3>
+                        <p>Documented complete methodology, experiments, and deployment workflow in a comprehensive project report, enabling reproducible research and streamlined handover for production deployment.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <i class="fas fa-database"></i>
+                        <h3>Dataset</h3>
+                        <p>Trained on 30,693+ patient records with 9 clinical biomarkers including enzyme levels, protein measurements, and demographic data.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <i class="fas fa-brain"></i>
+                        <h3>AI Models</h3>
+                        <p>7 state-of-the-art machine learning algorithms with performance ranging from 58.92% to 99.74% accuracy.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Performance</h3>
+                        <p>Random Forest achieves the best results with 99.74% accuracy, 99.49% precision, and 99.99% ROC-AUC score.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Clinical Application</h3>
+                        <p>Designed for early detection and screening, helping healthcare professionals make informed decisions about liver disease diagnosis.</p>
+                    </div>
+                </div>
+
+                <!-- Feature List -->
+                <div class="features-section">
+                    <h3><i class="fas fa-star"></i> Clinical Biomarkers Used</h3>
+                    <div class="features-grid">
+                        <div class="feature-item"><i class="fas fa-check-circle"></i> Age & Gender</div>
+                        <div class="feature-item"><i class="fas fa-check-circle"></i> Total Bilirubin</div>
+                        <div class="feature-item"><i class="fas fa-check-circle"></i> Alkaline Phosphatase</div>
+                        <div class="feature-item"><i class="fas fa-check-circle"></i> Alanine Aminotransferase</div>
+                        <div class="feature-item"><i class="fas fa-check-circle"></i> Aspartate Aminotransferase</div>
+                        <div class="feature-item"><i class="fas fa-check-circle"></i> Total Proteins</div>
+                        <div class="feature-item"><i class="fas fa-check-circle"></i> Albumin</div>
+                        <div class="feature-item"><i class="fas fa-check-circle"></i> Albumin/Globulin Ratio</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Intelligent Liver Disease Prediction Suite | Powered by AI & Machine Learning</p>
+            <p class="disclaimer"><i class="fas fa-exclamation-triangle"></i> This tool is for research and educational purposes. Always consult healthcare professionals for medical diagnosis.</p>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loader">
+            <div class="pulse-circle"></div>
+            <i class="fas fa-heartbeat"></i>
+            <p>Analyzing...</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
